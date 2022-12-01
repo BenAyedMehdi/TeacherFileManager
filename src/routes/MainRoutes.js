@@ -1,3 +1,4 @@
+import { Navigate, useRoutes } from 'react-router-dom';
 import { lazy } from 'react';
 
 // project import
@@ -33,16 +34,19 @@ const MainRoutes = {
         },
         {
             path: 'test',
-            element: <TestingPage />
+            element: <TestingPage title="test" />
         },
         {
-            path: 'dashboard',
-            children: [
-                {
-                    path: 'default',
-                    element: <DashboardDefault />
-                }
-            ]
+            path: 'cours',
+            element: <TestingPage title="Cours" />
+        },
+        {
+            path: 'td',
+            element: <TestingPage title="TD" />
+        },
+        {
+            path: 'autre',
+            element: <TestingPage title="Autre" />
         },
         {
             path: 'sample-page',
@@ -59,6 +63,10 @@ const MainRoutes = {
         {
             path: 'icons/ant',
             element: <AntIcons />
+        },
+        {
+            path: '*',
+            element: <Navigate to="/" replace />
         }
     ]
 };

@@ -10,7 +10,7 @@ import apiCalls from '../../api/apiCalls';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-export default function TestingPage() {
+export default function TestingPage({ title }) {
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export default function TestingPage() {
     };
 
     return (
-        <MainCard title="Add a new file">
+        <MainCard title={title}>
             <Typography variant="body2">
                 You know that with every document you share, many student could learn and practice much more, thank you for doing this and
                 never stop making access to information easier and easier
