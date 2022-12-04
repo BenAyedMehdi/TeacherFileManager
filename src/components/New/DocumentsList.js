@@ -13,10 +13,12 @@ import {
     MenuItem,
     Stack,
     TextField,
-    Typography
+    Typography,
+    CircularProgress,
+    IconButton
 } from '@mui/material';
 
-import { FileProtectOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
+import { EyeOutlined, DownloadOutlined, FileProtectOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
 // project import
 import MainCard from 'components/MainCard';
 // avatar style
@@ -38,9 +40,10 @@ const actionSX = {
 import avatar from 'assets/images/users/avatar-group.png';
 import AnimateButton from 'components/@extended/AnimateButton';
 import AddFileDialog from './AddFileDialog';
+import ManagmentListItem from './ManagmentListItem';
 // ==============================|| DRAWER CONTENT - NAVIGATION CARD ||============================== //
 
-export default function DocumentsList({ docs }) {
+export default function DocumentsList({ docs, loading }) {
     return (
         <Grid item xs={12} md={5} lg={4}>
             <Grid container alignItems="center" justifyContent="space-between">
@@ -62,39 +65,17 @@ export default function DocumentsList({ docs }) {
                         }
                     }}
                 >
-                    {docs.map((e) => {
-                        return (
-                            <ListItemButton key={e.documentId} divider>
-                                <ListItemAvatar>
-                                    <Avatar
-                                        sx={{
-                                            color: 'primary.main',
-                                            bgcolor: 'primary.lighter'
-                                        }}
-                                    >
-                                        <FileProtectOutlined />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary={<Typography variant="subtitle1">{e.title}</Typography>} secondary="Today, 2:00 AM" />
-                                <ListItemSecondaryAction>
-                                    <Stack alignItems="flex-end">
-                                        <a
-                                            href={`https://pdfuploader20221121222942.azurewebsites.net/api/fileupload/${e.blobName}`}
-                                            target="_blank"
-                                        >
-                                            Download Pdf
-                                        </a>
-                                        <Typography variant="subtitle1" noWrap>
-                                            + $1,430
-                                        </Typography>
-                                        <Typography variant="h6" color="secondary" noWrap>
-                                            78%
-                                        </Typography>
-                                    </Stack>
-                                </ListItemSecondaryAction>
-                            </ListItemButton>
-                        );
-                    })}
+                    {loading && (
+                        <Stack alignItems="center">
+                            <Box sx={{ display: 'flex' }}>
+                                <CircularProgress />
+                            </Box>
+                        </Stack>
+                    )}
+                    {!loading &&
+                        docs.map((e) => {
+                            return <ManagmentListItem e={e} />;
+                        })}
                 </List>
             </MainCard>
         </Grid>

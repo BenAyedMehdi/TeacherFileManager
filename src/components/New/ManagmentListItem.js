@@ -1,0 +1,101 @@
+import React, { useState, useEffect } from 'react';
+import {
+    Avatar,
+    AvatarGroup,
+    Box,
+    Button,
+    Grid,
+    List,
+    ListItemAvatar,
+    ListItemButton,
+    ListItemSecondaryAction,
+    ListItemText,
+    MenuItem,
+    Stack,
+    TextField,
+    Typography,
+    CircularProgress,
+    IconButton
+} from '@mui/material';
+
+import {
+    EditOutlined,
+    FilePdfOutlined,
+    DeleteOutlined,
+    EyeOutlined,
+    DownloadOutlined,
+    FileProtectOutlined,
+    GiftOutlined,
+    MessageOutlined,
+    SettingOutlined
+} from '@ant-design/icons';
+// project import
+import MainCard from 'components/MainCard';
+// avatar style
+const avatarSX = {
+    width: 36,
+    height: 36,
+    fontSize: '1rem'
+};
+// action style
+const actionSX = {
+    mt: 0.75,
+    ml: 1,
+    top: 'auto',
+    right: 'auto',
+    alignSelf: 'flex-start',
+    transform: 'none'
+};
+// assets
+import avatar from 'assets/images/users/avatar-group.png';
+import AnimateButton from 'components/@extended/AnimateButton';
+import AddFileDialog from './AddFileDialog';
+// ==============================|| DRAWER CONTENT - NAVIGATION CARD ||============================== //
+
+export default function ManagmentListItem({ e }) {
+    return (
+        <ListItemButton key={e.documentId} divider>
+            <ListItemAvatar>
+                <Avatar
+                    sx={{
+                        color: 'primary.main',
+                        bgcolor: 'primary.lighter'
+                    }}
+                >
+                    <FilePdfOutlined />
+                </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={<Typography variant="subtitle1">{e.title}</Typography>} secondary="Today, 2:00 AM" />
+            <ListItemSecondaryAction>
+                <Grid container spacing={3}>
+                    <Grid item>
+                        <Button
+                            href={`https://pdfuploader20221121222942.azurewebsites.net/api/fileupload/${e.blobName}`}
+                            target="_blank"
+                            variant="outlined"
+                            shape="circle"
+                            size="large"
+                        >
+                            <EyeOutlined />
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <Button color="success" variant="contained" shape="circle" size="large">
+                            <DownloadOutlined />
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <Button variant="contained" shape="circle" size="large">
+                            <EditOutlined />
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <Button color="error" variant="contained" shape="circle" size="large">
+                            <DeleteOutlined />
+                        </Button>
+                    </Grid>
+                </Grid>
+            </ListItemSecondaryAction>
+        </ListItemButton>
+    );
+}
