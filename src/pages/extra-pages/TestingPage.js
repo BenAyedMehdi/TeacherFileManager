@@ -1,11 +1,12 @@
 // material-ui
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 // project import
 import MainCard from 'components/MainCard';
 import AddFilePoster from 'components/New/AddFilePoster';
+import AddFileDialog from 'components/New/AddFileDialog';
 import DocumentsList from 'components/New/DocumentsList';
 import NavCard from 'layout/MainLayout/Drawer/DrawerContent/NavCard';
 import apiCalls from '../../api/apiCalls';
@@ -14,7 +15,7 @@ import apiCalls from '../../api/apiCalls';
 
 export default function TestingPage({ title }) {
     const [documents, setDocuments] = useState([]);
-    const [laoding, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const getDocuments = async () => {
@@ -22,24 +23,29 @@ export default function TestingPage({ title }) {
             const docs = await apiCalls.GetAllDocuments();
             setDocuments(docs);
             setLoading(false);
-            console.log(docs);
         };
         getDocuments();
     }, []);
 
     const handleDoc = (doc) => {
-        console.log(doc);
         setDocuments([...documents, doc]);
     };
 
     return (
-        <MainCard title={title}>
-            <Typography variant="body2">
-                You know that with every document you share, many student could learn and practice much more, thank you for doing this and
-                never stop making access to information easier and easier
-            </Typography>
-            <AddFilePoster docAdded={handleDoc} />
-            <DocumentsList loading={false} docs={documents} />
-        </MainCard>
+        <>
+            <MainCard>
+                <Grid container spacing={3}>
+                    <Grid item>
+                        <AddFileDialog addedDoc={handleDoc} />
+                    </Grid>
+                    <Grid item>
+                        <AddFileDialog addedDoc={handleDoc} />
+                    </Grid>
+                </Grid>
+            </MainCard>
+            <MainCard title={title}>
+                <DocumentsList loading={loading} docs={documents} />
+            </MainCard>
+        </>
     );
 }

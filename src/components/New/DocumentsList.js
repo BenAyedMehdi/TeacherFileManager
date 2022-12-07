@@ -45,39 +45,31 @@ import ManagmentListItem from './ManagmentListItem';
 
 export default function DocumentsList({ docs, loading }) {
     return (
-        <Grid item xs={12} md={5} lg={4}>
-            <Grid container alignItems="center" justifyContent="space-between">
-                <Grid item>
-                    <Typography variant="h5">Available files</Typography>
-                </Grid>
-                <Grid item />
-            </Grid>
-            <MainCard sx={{ mt: 2 }} content={false}>
-                <List
-                    component="nav"
-                    sx={{
-                        px: 0,
-                        py: 0,
-                        '& .MuiListItemButton-root': {
-                            py: 1.5,
-                            '& .MuiAvatar-root': avatarSX,
-                            '& .MuiListItemSecondaryAction-root': { ...actionSX, position: 'relative' }
-                        }
-                    }}
-                >
-                    {loading && (
-                        <Stack alignItems="center">
-                            <Box sx={{ display: 'flex' }}>
-                                <CircularProgress />
-                            </Box>
-                        </Stack>
-                    )}
-                    {!loading &&
-                        docs.map((e) => {
-                            return <ManagmentListItem e={e} />;
-                        })}
-                </List>
-            </MainCard>
-        </Grid>
+        <MainCard sx={{ mt: 2 }} content={false}>
+            <List
+                component="nav"
+                sx={{
+                    px: 0,
+                    py: 0,
+                    '& .MuiListItemButton-root': {
+                        py: 1.5,
+                        '& .MuiAvatar-root': avatarSX,
+                        '& .MuiListItemSecondaryAction-root': { ...actionSX, position: 'relative' }
+                    }
+                }}
+            >
+                {loading && (
+                    <Stack alignItems="center">
+                        <Box sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                        </Box>
+                    </Stack>
+                )}
+                {!loading &&
+                    docs.map((e) => {
+                        return <ManagmentListItem key={e.documentId} e={e} />;
+                    })}
+            </List>
+        </MainCard>
     );
 }
